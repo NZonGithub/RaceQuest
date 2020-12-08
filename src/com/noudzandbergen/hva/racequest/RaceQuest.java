@@ -14,14 +14,16 @@ import java.util.ArrayList;
 public class RaceQuest extends PApplet {
 
 	// Game Data
-	private final ArrayList<Car> cars = new ArrayList<>();
+	// Creating the list here because we might use it in the visualizer.
+	public final ArrayList<Car> cars = new ArrayList<>();
 
-	// Components
-	private ParkingGridComponent parkingGrid;
-	private RaceVisualizerComponent raceVisualizer;
-	private StatisticsComponent statisticsDisplay;
 
-	// Initialization at top of file.
+	// Components. Public to allow any of them to access each other.
+	public ParkingGridComponent parkingGrid;
+	public RaceVisualizerComponent raceVisualizer;
+	public StatisticsComponent statisticsDisplay;
+
+
 	@Override
 	public void setup() {
 		// Load game data
@@ -33,17 +35,12 @@ public class RaceQuest extends PApplet {
 			cars.add(new Car(sprite, 6));
 		}
 
-		// Load components
-		parkingGrid = new ParkingGridComponent(8, 12);
-		raceVisualizer = new RaceVisualizerComponent();
-		statisticsDisplay = new StatisticsComponent();
 
-		// Fill up parking grid
-		for (int y = 0; y < parkingGrid.rows; y++) {
-			for (int x = 0; x < parkingGrid.columns; x++) {
-				parkingGrid.set(x, y, cars.get((int) random(0, cars.size())));
-			}
-		}
+		// Load components
+		parkingGrid = new ParkingGridComponent(this, 8, 12);
+		raceVisualizer = new RaceVisualizerComponent(this);
+		statisticsDisplay = new StatisticsComponent(this);
+
 
 		// Rendering settings
 		noStroke(); // We'll likely never have to stroke within the entire game
@@ -58,8 +55,8 @@ public class RaceQuest extends PApplet {
 	public void draw() {
 		// Calculate delta time. Might come in handy.
 		float delta = (-pFrameNanos + (pFrameNanos = frameRateLastNanos)) / 1e9f;
-		if (delta > 10)
-		if (delta < 1) time += delta;
+		if (delta < 1)
+			time += delta;
 
 		// Game logic & physics
 
@@ -74,7 +71,7 @@ public class RaceQuest extends PApplet {
 
 
 		translate(renderArea.x, 0); // Translate in order to draw at the top right side of the screen
-		renderArea.set(width - renderArea.x, height*0.6f);
+		renderArea.set(width - renderArea.x, height * 0.6f);
 		raceVisualizer.draw(getGraphics(), renderArea, time);
 
 
@@ -90,21 +87,22 @@ public class RaceQuest extends PApplet {
 	public void settings() {
 		// Create a full-screen canvas.
 		// Our game will be optimized for but not restricted to 1920x1080.
-//		fullScreen(P2D);
-//		size(640, 480, P2D);
-		size(1920, 1080, P2D);
-//		size(1280, 720, P2D);
+		fullScreen(P2D);
+		//		size(640, 480, P2D);
+		// size(1920, 1080, P2D);
+		//		size(1280, 720, P2D);
 	}
 
 	// Application entry point
 	public static void main(String[] args) {
+
 		// Create our game instance manually as to allow more control of the application.
 		// For example, we could load up data here and pass it to the constructor of RaceQuest.
 		// Plus I like it better than to have Processing handle all the magic itself.
 		// PApplet.main() is made mainly for command-line use.
-		// So I prefer runSketch with a manually created instance.
 		RaceQuest game = new RaceQuest();
-		runSketch(new String[] { game.getClass().getName() }, game);
+		runSketch(new String[]{game.getClass().getName()}, game);
+
 	}
 
 }

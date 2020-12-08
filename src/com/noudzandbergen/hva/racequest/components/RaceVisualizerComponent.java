@@ -1,9 +1,16 @@
 package com.noudzandbergen.hva.racequest.components;
 
+import com.noudzandbergen.hva.racequest.RaceQuest;
 import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class RaceVisualizerComponent {
+
+	private final RaceQuest game;
+
+	public RaceVisualizerComponent(RaceQuest game) {
+		this.game = game;
+	}
 
 	public void update(float delta) {
 
