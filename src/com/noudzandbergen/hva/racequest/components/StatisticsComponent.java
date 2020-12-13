@@ -22,24 +22,28 @@ public class StatisticsComponent {
 	}
 
 	public void draw(PGraphics g, PVector size, float time) {
-
 		g.push();
 
-		// Fill background
+		// Fill / Clear background
 		g.fill(0xff000000);
 		g.rect(0, 0, size.x, size.y);
 
+		float scaleFragment = Math.min(size.x, size.y) * 0.01f;
+		int columns = 2, rows = 3;
+
 		// Draw some random text
 		g.fill(0xffffffff);
-		g.textSize(30);
-		g.textAlign(PConstants.CORNER, PConstants.CENTER);
+		g.textSize(scaleFragment * 5);
+		g.textAlign(PConstants.CENTER, PConstants.CENTER);
+
 		g.text("Current Place:", 0, row1);
 		g.text("Current Highscore:", 0, row2);
 		g.text("Laps:", 0, row3);
-		g.text("highscore.place", rowAnwsers, row1);
-		g.text("highscore", rowAnwsers, row2);
-		g.text("laps.remaing, /3", rowAnwsers, row3);
-		g.pop();
 
+		g.text("1st", rowAnwsers, row1);
+		g.text(game.score, rowAnwsers, row2);
+		g.text("2 / 3", rowAnwsers, row3);
+
+		g.pop();
 	}
 }

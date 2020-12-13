@@ -9,6 +9,10 @@ public class Util {
 		return list.get((int) (Math.random() * list.size()));
 	}
 
+	public static <T> T getRandomItem(T[] list) {
+		return list[(int) (Math.random() * list.length)];
+	}
+
 	public static <T> T tryOr(Supplier<T> supplier, T alt) {
 		try {
 			return supplier.get();

@@ -18,6 +18,12 @@ public class ParkingGrid {
 		return carGrid[y*columns+x];
 	}
 
+	public boolean checkCollision(int x, int y) {
+		if (x < 0 || x >= columns || y >= rows) return true;
+		if (y < 0) return false;
+		return carGrid[y*columns+x] != null;
+	}
+
 	public void set(int x, int y, Car car) {
 		if (x < 0 || x >= columns || y < 0 || y >= rows) return;
 		carGrid[y*columns+x] = car;
@@ -32,8 +38,8 @@ public class ParkingGrid {
 		for (int y = rows-1; y > 0; y--) {
 
 			Car[] row = new Car[columns];
-
 			int rowCarCount = 0;
+
 			for (int x = 0; x < columns; x++) {
 				Car car = get(x, y);
 
@@ -44,7 +50,7 @@ public class ParkingGrid {
 
 				if (removedRows.size() > 0) {
 					set(x, y, null);
-					set(x, y - removedRows.size(), car);
+					set(x, y + removedRows.size(), car);
 				}
 			}
 
@@ -53,6 +59,8 @@ public class ParkingGrid {
 						row,
 						y
 				));
+				for (int x = 0; x < columns; x++)
+					set(x, y, null);
 			} else if (rowCarCount == 0) {
 				break;
 			}
