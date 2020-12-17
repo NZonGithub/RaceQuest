@@ -6,10 +6,6 @@ import processing.core.PGraphics;
 import processing.core.PVector;
 
 public class StatisticsComponent {
-	private int row1 = 100;
-	private int row2 = 200;
-	private int row3 = 300;
-	private int rowAnwsers = 400;
 
 	private final RaceQuest game;
 
@@ -28,21 +24,20 @@ public class StatisticsComponent {
 		g.fill(0xff000000);
 		g.rect(0, 0, size.x, size.y);
 
-		float scaleFragment = Math.min(size.x, size.y) * 0.01f;
-		int columns = 2, rows = 3;
+		float cellWidth = size.x/2f, cellHeight = size.y/3f;
 
 		// Draw some random text
 		g.fill(0xffffffff);
-		g.textSize(scaleFragment * 5);
+		g.textSize(cellHeight/3);
 		g.textAlign(PConstants.CENTER, PConstants.CENTER);
 
-		g.text("Current Place:", 0, row1);
-		g.text("Current Highscore:", 0, row2);
-		g.text("Laps:", 0, row3);
+		g.text("Current Place:", cellWidth * 0.5f, cellHeight * 0.5f);
+		g.text("Current Highscore:", cellWidth * 0.5f, cellHeight * 1.5f);
+		g.text("Laps:", cellWidth * 0.5f, cellHeight * 2.5f);
 
-		g.text("1st", rowAnwsers, row1);
-		g.text(game.score, rowAnwsers, row2);
-		g.text("2 / 3", rowAnwsers, row3);
+		g.text("1st", cellWidth * 1.5f, cellHeight * 0.5f);
+		g.text(game.score, cellWidth * 1.5f, cellHeight * 1.5f);
+		g.text("2 / 3", cellWidth * 1.5f, cellHeight * 2.5f);
 
 		g.pop();
 	}

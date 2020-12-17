@@ -19,7 +19,7 @@ public class RaceQuest extends PApplet {
 	// Game Data
 	public static final Shape I = new Shape("I", .5f, -.5f,-1, 0, 2, 0, 1, 0, 0, 0);
 	public static final Shape J = new Shape("J", 0, 0, -1, 0, 1, 0, -1, 1, 0, 0);
-	public static final Shape L = new Shape("L", 0, 0, -1, 0, 1, 0, 1, -1, 0, 0);
+	public static final Shape L = new Shape("L", 0, 0, -1, 0, 1, 0, 1, 1, 0, 0);
 	public static final Shape O = new Shape("O", .5f, -.5f, 0, 0, 1, 0, 1, -1, 0, -1);
 	public static final Shape S = new Shape("S", 0, 0, -1, 0, 1, -1, 0, -1, 0, 0);
 	public static final Shape Z = new Shape("Z", 0, 0, 1, 0, -1, -1, 0, -1, 0, 0);
@@ -51,11 +51,10 @@ public class RaceQuest extends PApplet {
 	@Override
 	public void setup() {
 		// Load game data
-		PImage atlas = loadImage("res/atlas.png");
+		PImage atlas = loadImage("atlas.png");
 
 		for (AtlasUtil.ImageBounds bounds : AtlasUtil.generateBounds(4, 6, 280, 114, 20, 38, 18, 32)) {
 			PImage sprite = atlas.get(bounds.x, bounds.y, bounds.width, bounds.height);
-			System.out.println(bounds);
 			cars.add(new Car(sprite, 6));
 		}
 

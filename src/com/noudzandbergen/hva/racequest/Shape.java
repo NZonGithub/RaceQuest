@@ -8,16 +8,16 @@ public class Shape {
 	public final String name;
 
 	// Center of the block
-	private final float anchorX;
-	private final float anchorY;
+	public final float centerX;
+	public final float centerY;
 
 	public final Position[][] positions;
 
 
-	public Shape(String name, float anchorX, float anchorY, int... positions) {
+	public Shape(String name, float centerX, float centerY, int... positions) {
 		this.name = name;
-		this.anchorX = anchorX;
-		this.anchorY = anchorY;
+		this.centerX = centerX;
+		this.centerY = centerY;
 		this.positions = new Position[4][positions.length/2];
 		for (int i = 0; i < this.positions.length; i++) {
 			for (int j = 0; j < positions.length;) {
@@ -25,8 +25,8 @@ public class Shape {
 
 //				Rotate the position by 90 degrees for the next list of positions.
 				int tmp = positions[j];
-				positions[j++] = (int) (positions[j] - anchorY + anchorX);
-				positions[j++] = (int) (-tmp + anchorX + anchorY);
+				positions[j++] = (int) (positions[j] - centerY + centerX);
+				positions[j++] = (int) (-tmp + centerX + centerY);
 			}
 		}
 	}
