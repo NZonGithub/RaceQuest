@@ -5,6 +5,7 @@ import com.noudzandbergen.hva.racequest.components.RaceVisualizerComponent;
 import com.noudzandbergen.hva.racequest.components.StatisticsComponent;
 import com.noudzandbergen.hva.racequest.util.AtlasUtil;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PVector;
 import processing.event.KeyEvent;
@@ -34,6 +35,8 @@ public class RaceQuest extends PApplet {
 	public RaceVisualizerComponent raceVisualizer;
 	public StatisticsComponent statisticsDisplay;
 
+	public PFont display, paragraph;
+
 	public int score = 0;
 
 	// Startup code and settings
@@ -50,14 +53,15 @@ public class RaceQuest extends PApplet {
 
 	@Override
 	public void setup() {
-		// Load game data
-		PImage atlas = loadImage("atlas.png");
+		// Load game resources
+		PImage atlas = loadImage("img/atlas.png");
 
 		for (AtlasUtil.ImageBounds bounds : AtlasUtil.generateBounds(4, 6, 280, 114, 20, 38, 18, 32)) {
 			PImage sprite = atlas.get(bounds.x, bounds.y, bounds.width, bounds.height);
 			cars.add(new Car(sprite, 6));
 		}
 
+		display = createFont("fonts/ChineseRocks-Regular.ttf", 96, false);
 
 		// Load components
 		parkingGrid = new ParkingGridComponent(this, 14, 14);
